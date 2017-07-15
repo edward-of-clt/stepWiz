@@ -139,6 +139,10 @@ var wiz = class {
         this.elem.addClass('wizard_box');
         this.elem.append('<div class="steps"></div><div class="content"><div class="prompt"></div><div class="response"></div></div><div class="buttons"></div>');
         // this.elem.parent('div').before('<a href="javascript:;" class="enableNext">enable</a>');
+        if(typeof(this.opts.title) != "undefined") {
+            this.elem.prepend('<div class="title">'+this.opts.title+'</div>');
+        }
+
         if(typeof(this.opts.back) == "undefined" || (this.opts.back && this.opts.back == true)) {
           this.elem.find('.buttons').append('<button type="button" disabled class="btn prevStep btn-default">Back</button>');
         }

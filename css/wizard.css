@@ -15,6 +15,14 @@ div.wizard_box div.content {
   padding: 20px;
 }
 
+div.wizard_box div.title {
+  width: 100%;
+  background: linear-gradient(#eee,#ddd);
+  border-bottom: solid 1px #ccc;
+  padding: 24px;
+  font-size: 24px;
+}
+
 div.wizard_box div.steps {
   border-right: solid #ccc 1px;
   width: 250px;
