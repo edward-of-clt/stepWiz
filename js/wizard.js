@@ -62,7 +62,7 @@ var wiz = class {
         if(step+1 === this.steps.length) {
           $(this.elem).find('div.buttons button.nextStep').prop('disabled',true);
         } else {
-          if((typeof(this.steps[step].action) == "string" || typeof(this.steps[step].action) == "function") && (step > prev || typeof(this.steps[step].response) == "undefined")) {
+          if((typeof(this.steps[step].action) == "string" || typeof(this.steps[step].action) == "function") && (step > prev && typeof(this.steps[step].response) == "undefined")) {
             $(this.elem).find('div.buttons button.nextStep').prop('disabled',true);
           } else {
             $(this.elem).find('div.buttons button.nextStep').prop('disabled',false);
@@ -120,8 +120,11 @@ var wiz = class {
           } else {
             $(this.elem).find('.content .response').html('<div class="alert alert-success" role="alert">Step completed, click next.</div>');
           }
-          $(this.elem).find('div.buttons button.nextStep').prop('disabled',false);
-          $(this.elem).find('div.content button').prop('disabled',true);
+          console.log([step+1,this.steps.length]);
+          if(step+1 < this.steps.length) {
+            $(this.elem).find('div.buttons button.nextStep').prop('disabled',false);
+            $(this.elem).find('div.content button').prop('disabled',true);
+          }
           this.steps[step].response = $(this.elem).find('.content .response').html();
         } else {
           $(this.elem).find('.content .response').html('<div class="alert alert-danger" role="alert">There was an error. Please try again.</div>');
