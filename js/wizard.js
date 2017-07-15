@@ -33,16 +33,14 @@ var wiz = class {
         });
       }
 
-      async goToStep(step,prev) {
+      goToStep(step,prev) {
         // $(this.elem).children('.buttons').children('button.nextStep').text(this.current_step);
 
         if(step > prev) {
-          this.steps[prev].response = $(this.elem).find('.content .response').html();
           if(this.elem.find('form').length > 0) {
-
             // attach any formdata to the step
             this.steps[prev].formdata = this.elem.find('form').serializeArray();
-
+            console.log(this.elem.find('form').serializeArray());
           }
         }
 
@@ -101,7 +99,7 @@ var wiz = class {
           status = function(resp) {
               wiz.elem.find('.response').html(resp);
           },
-          resp = stepObj.action( step, stepResp, status );
+          resp = stepObj.action( wiz, stepResp, status );
 
           // var resp = $.when( this.steps[step].action() ).done(function( data, textStatus, jqXHR ) {
           //               console.log([data,textStatus,jqXHR]);
@@ -118,14 +116,15 @@ var wiz = class {
       checkPass(step,bool) {
         if(bool) {
           if(typeof(this.steps[step].success) != "undefined") {
-            $(this.elem).find('.content .response').html('<div class="alert alert-success">'+this.steps[step].success+'</div>');
+            $(this.elem).find('.content .response').html('<div class="alert alert-success" role="alert">'+this.steps[step].success+'</div>');
           } else {
-            $(this.elem).find('.content .response').html('<div class="alert alert-success">Step completed, click next.</div>');
+            $(this.elem).find('.content .response').html('<div class="alert alert-success" role="alert">Step completed, click next.</div>');
           }
           $(this.elem).find('div.buttons button.nextStep').prop('disabled',false);
           $(this.elem).find('div.content button').prop('disabled',true);
+          this.steps[step].response = $(this.elem).find('.content .response').html();
         } else {
-          $(this.elem).find('.content .response').html('<div class="alert alert-error">There was an error. Please try again.</div>');
+          $(this.elem).find('.content .response').html('<div class="alert alert-danger" role="alert">There was an error. Please try again.</div>');
         }
       }
 
@@ -159,12 +158,12 @@ var wiz = class {
         var button = '';
         if(typeof(this.steps[step].action) != "undefined") {
           var button_text = (typeof(this.steps[step].action_text) != "undefined") ? this.steps[step].action_text : 'Run Step',
-          button = '<div style="margin-top:10px;"><button class="btn btn-lg btn-green runStep">'+button_text+'</button></div>';
+          button = '<div style="margin-top:10px;"><button class="btn btn-lg btn-success runStep">'+button_text+'</button></div>';
         }
 
         var resp = '';
         if(typeof(this.steps[step].response) != "undefined" && this.steps[step].response.length > 0) {
-          resp = $(this.steps[step].response)[0].innerHTML;
+          resp = this.steps[step].response;
         }
 
         var text = this.steps[step].text;
@@ -174,7 +173,7 @@ var wiz = class {
 
         this.elem.children('div.content').html('<h3>'+this.steps[step].title+'</h3><div class="prompt">'+text+button+'</div><div class="response">'+resp+'</div>');
 
-        if(resp != " ") {
+        if(resp != "") {
           $(this.elem).find('.content button').prop('disabled',true);
         }
       }

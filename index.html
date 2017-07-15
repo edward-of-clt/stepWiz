@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>Wizard Playground</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://use.fontawesome.com/9d02f2ae2f.js"></script>
+<script src="js/wizard.js"></script>
+<link href="css/wizard.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="module">
+    <div id="wizard"></div>
+  </div>
+
+  <style>
+    .module {
+      position: relative;
+      top: 100px;
+      max-width: 1200px;
+      border: solid #ccc 1px;
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 30px auto;
+    }
+  </style>
+
+<script> let wizard = new wiz('#wizard',
+              [
+                  {
+                    title: 'Introduction',
+                    icon: 'home',
+                    text: '<p>Before you get started, you should be aware of the depencies of stepWiz.</p>\
+                              <div class="alert alert-info"><strong>Depencies for stepWiz include</strong>:\
+                              <ul>\
+                                <li>jQuery >= 3.2.1</li>\
+                                <li>FontAwesome</li>\
+                                <li>Bootstrap >= 3.0.0</li>\
+                              </ul></div>',
+                  },
+                  {
+                    title: 'Forms',
+                    icon: 'wpforms',
+                    text: '<p>To use forms, you would enter the form code like you would anywhere else. Email is test & password is password</p>\
+                    <form>\
+                      <div class="form-group row">\
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>\
+                        <div class="col-sm-10">\
+                          <input type="email" class="form-control" name="email" id="email" placeholder="Email">\
+                        </div>\
+                      </div>\
+                      <div class="form-group row">\
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>\
+                        <div class="col-sm-10">\
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Password">\
+                        </div>\
+                      </div>\
+                    </form>',
+                    action: function(wiz,pass,status) {
+                      console.log(wiz.elem.find('form'));
+                      if(wiz.elem.find('form input#email').val() == "test" && wiz.elem.find('form input#password').val() == "password") {
+                        pass(true);
+                      } else {
+                        pass(false);
+                      }
+                    },
+                    action_text: 'Check Permissions'
+                  },
+                  {
+                    title: 'View Form Data',
+                    icon: 'flash',
+                    text: function(wiz,step) {
+                      var data = '';
+                      $.each(wiz.steps[wiz.current_step-1].formdata, function(index,value) {
+                          data += value.name+' => '+value.value+"\n";
+                      });
+                      return '<h4>Fetch your form data easily:</h4>\
+                      <p>Within your wizard object, you will find wizard.data.form which conglomerates all the form data from the wizard for your use whenever you want to use it.</p>\
+                      <pre>'+data+'</pre>';
+                    },
+                    // action: window.download_files,
+                    success: 'Files were downloaded correctly!'
+                  },
+                  {
+                    title: 'Final Clean Up',
+                    icon: 'check-square-o',
+                    text: 'This step will clean up any old files.',
+                    action: window.cleanup,
+                    action_text: 'Run Clean Up Process'
+                  },
+                  {
+                    title: 'Restart',
+                    icon: 'refresh',
+                    text: 'Wizard now needs to restart to show updates.',
+                    success: 'Wizard will restart in <span class="countdown">5</span> seconds.',
+                    action: function(self,pass,status) {
+                      pass(true);
+                      var countdown = 4;
+                      var timer = setInterval(function() {
+                        $('.content .response .countdown').text(countdown--);
+                        if(countdown === 0) { clearTimeout(timer); }
+                      },1000);
+                      setTimeout(function() { location.reload(); },5000);
+                    }
+                  }
+              ], {
+                back: true,
+                title: "Wizard Playground"
+              }
+            );
+</script>
+</body>
+</html>
