@@ -28,8 +28,13 @@ div.wizard_box div.steps a {
   font-size: 16px;
 }
 
-div.wizard_box div.steps a:not(:last-child) {
+div.wizard_box div.steps a {
   border-bottom: #ddd 1px solid;
+  text-decoration: none !important;
+}
+
+div.wizard_box div.steps a:last-child {
+  margin-bottom: 50px;
 }
 
 div.wizard_box div.steps a i {
@@ -51,7 +56,7 @@ div.wizard_box div.steps a.active::after {
   font-family: FontAwesome;
   position: absolute;
   right: 20px;
-  margin-top: 3px;
+  margin-top: 0px;
 }
 
 div.wizard_box div.buttons button {

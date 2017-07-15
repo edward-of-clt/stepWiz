@@ -3,6 +3,7 @@ var wiz = class {
         this.elem = $(obj);
         this.steps = steps;
         this.opts = opts;
+        this.data = [];
         this.current_step = 0;
         this.listeners = this.listeners();
         this.setup(steps);
@@ -32,11 +33,17 @@ var wiz = class {
         });
       }
 
-      goToStep(step,prev) {
+      async goToStep(step,prev) {
         // $(this.elem).children('.buttons').children('button.nextStep').text(this.current_step);
 
         if(step > prev) {
           this.steps[prev].response = $(this.elem).find('.content .response').html();
+          if(this.elem.find('form').length > 0) {
+
+            // attach any formdata to the step
+            this.steps[prev].formdata = this.elem.find('form').serializeArray();
+
+          }
         }
 
         $(this.elem).find('.steps a').removeClass('active');
@@ -123,7 +130,7 @@ var wiz = class {
       }
 
       createStep(index,step) {
-        $(this.elem).find('div.steps').append('<a href="javascript:;" data-step="'+index+'" class="step"><i class="'+step.icon+'"></i> '+step.title+'</a>');
+        $(this.elem).find('div.steps').append('<a href="javascript:;" data-step="'+index+'" class="step"><i class="fa fa-'+step.icon+'"></i> '+step.title+'</a>');
       }
 
       async setup(steps) {
@@ -148,18 +155,24 @@ var wiz = class {
       }
 
       setContent(step) {
+
+        var button = '';
         if(typeof(this.steps[step].action) != "undefined") {
           var button_text = (typeof(this.steps[step].action_text) != "undefined") ? this.steps[step].action_text : 'Run Step',
           button = '<div style="margin-top:10px;"><button class="btn btn-lg btn-green runStep">'+button_text+'</button></div>';
-        } else {
-          var button = null;
         }
 
-        var resp = ' ';
-        if(typeof(this.steps[step].response) != "undefined") {
+        var resp = '';
+        if(typeof(this.steps[step].response) != "undefined" && this.steps[step].response.length > 0) {
           resp = $(this.steps[step].response)[0].innerHTML;
         }
-        this.elem.children('div.content').html('<h3>'+this.steps[step].title+'</h3><div class="prompt">'+this.steps[step].text+button+'</div><div class="response">'+resp+'</div>');
+
+        var text = this.steps[step].text;
+        if(typeof(this.steps[step].text) == "function") {
+          var text = this.steps[step].text(this,this.steps[step]);
+        }
+
+        this.elem.children('div.content').html('<h3>'+this.steps[step].title+'</h3><div class="prompt">'+text+button+'</div><div class="response">'+resp+'</div>');
 
         if(resp != " ") {
           $(this.elem).find('.content button').prop('disabled',true);
