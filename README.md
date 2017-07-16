@@ -5,16 +5,12 @@ Preview stepWiz in action here: <a href="https://edward-of-clt.github.io/stepWiz
 
 Feel free to star, fork, and share this repo. 
 
-<hr>
-
 ## Dependencies
 
 Depencies for stepWiz include:
 * jQuery >= 3.2.1
 * FontAwesome
 * Bootstrap >= 3.0.0
-
-<hr>
 
 ## Examples
 
