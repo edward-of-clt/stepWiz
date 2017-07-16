@@ -3,6 +3,8 @@ Walk users through the appropriate steps easily using this Javascript library.
 
 Preview stepWiz in action here: <a href="https://edward-of-clt.github.io/stepWiz/">https://edward-of-clt.github.io/stepWiz/</a>
 
+Feel free to star, fork, and share this repo. 
+
 <hr>
 
 ## Dependencies
@@ -64,3 +66,17 @@ In order to create a fluid user interface for users easily, the developer simply
 	],{
 		title: 'A simple walk-through'
 	});
+
+## Options
+
+| Property        | Accepted Values  | Description  						|
+| --------------- | ---------------- | -------------------------------------------------------- |
+| progress        | true, false      | Enables or disables the progress bar on the bottom left  |
+| title      	  | string           | Defines a title for the wizard 				|
+| back 		  | true, false      | Enables or disables the back button in the wizard.	|
+
+
+## To Do List
+
+1. Add ability to define a function when the wizard is complete. It would change the next button to "Finish" or whatever the user defines.
+2. Finish button text as mentioned in #1.
