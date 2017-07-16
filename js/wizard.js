@@ -42,7 +42,12 @@ var wiz = class {
             this.steps[prev].formdata = this.elem.find('form').serializeArray();
             console.log(this.elem.find('form').serializeArray());
           }
+
         }
+
+        var percent = Math.round(step/(this.steps.length-1)*100);
+
+        this.elem.find('.progress .progress-bar').css('width',percent+'%').attr("aria-valuenow",percent+"%");
 
         $(this.elem).find('.steps a').removeClass('active');
         $(this.elem).find('.steps a[data-step="'+step+'"]').addClass('active');
@@ -137,10 +142,14 @@ var wiz = class {
 
       async setup(steps) {
         this.elem.addClass('wizard_box');
-        this.elem.append('<div class="steps"></div><div class="content"><div class="prompt"></div><div class="response"></div></div><div class="buttons"></div>');
+        this.elem.append('<div class="steps"></div><div class="content"><div class="prompt"></div><div class="response"></div></div><div class="bottom"><div class="progress_contain"><div style="margin:0px;" class="progress"></div></div><div class="buttons"></div></div>');
         // this.elem.parent('div').before('<a href="javascript:;" class="enableNext">enable</a>');
         if(typeof(this.opts.title) != "undefined") {
             this.elem.prepend('<div class="title">'+this.opts.title+'</div>');
+        }
+
+        if(typeof(this.opts.progress) === "undefined" || this.opts.progress == false) {
+            this.elem.find('.bottom .progress_contain .progress').append('<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>');
         }
 
         if(typeof(this.opts.back) == "undefined" || (this.opts.back && this.opts.back == true)) {
