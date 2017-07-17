@@ -84,6 +84,8 @@ var wiz = class {
                                                           </div>\
                                                       </div>');
 
+        this.elem.find('.content .prompt button').prop('disabled',true);
+
         if(typeof(this.steps[step].action) == "function") {
           var
           stepObj = this.steps[step],
@@ -91,13 +93,15 @@ var wiz = class {
           stepResp = function(s) {
             if (s === false) {
               wiz.checkPass(step,false);
+              wiz.elem.find('.content .prompt button').prop('disabled',false);
             } else if (s === true) {
               wiz.checkPass(step,true);
             } else if (s === null) {
               // do nothing, disabled run step because it didn't exactly fail
-              wiz.elem.find('.content .prompt button').prop('disabled',true);
+              wiz.elem.find('.content .prompt button').prop('disabled',false);
             } else {
               wiz.checkPass(step,false);
+              wiz.elem.find('.content .prompt button').prop('disabled',false);
               console.log('Valid response not received');
             }
           },
@@ -128,7 +132,6 @@ var wiz = class {
           console.log([step+1,this.steps.length]);
           if(step+1 < this.steps.length) {
             $(this.elem).find('div.buttons button.nextStep').prop('disabled',false);
-            $(this.elem).find('div.content button').prop('disabled',true);
           }
           this.steps[step].response = $(this.elem).find('.content .response').html();
         } else {
