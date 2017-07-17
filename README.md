@@ -5,6 +5,8 @@ Preview stepWiz in action here: <a href="https://edward-of-clt.github.io/stepWiz
 
 Feel free to star, fork, and share this repo. 
 
+<img width="25%" src="img/step1.jpg"> <img width="25%" src="img/step2confirm.png"> <img width="25%" src="img/step3.png">
+
 ## Dependencies
 
 Depencies for stepWiz include:
