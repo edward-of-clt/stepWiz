@@ -120,12 +120,9 @@ margin: 10% auto;
 padding: 5px 20px 13px 20px;
 border-radius: 10px;
 background: #fff;
-background: -moz-linear-gradient(#fff, #999);
-background: -webkit-linear-gradient(#fff, #999);
-background: -o-linear-gradient(#fff, #999);
 }
 .wiz-close {
-background: #606061;
+background: #337ab7;
 color: #FFFFFF;
 line-height: 35px;
 position: absolute;
@@ -146,6 +143,42 @@ box-shadow: 1px 1px 3px #000;
 }
 
 .wiz-close:hover {
-background: #00d9ff;
+background: #286090;
+color: #fff;
 text-decoration: none;
+}
+
+.wiz-modal > div.wizard_box > div.title {
+  width: 100%;
+   background: transparent;
+  border-bottom: solid 1px #ccc;
+  padding: 24px;
+  font-size: 24px;
+}
+.wiz-modal > div.wizard_box > div.bottom {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: transparent;
+  border-top: solid #ddd 1px;
+  text-align: right;
+}
+@media (max-width:775px){
+  .wiz-modal > div.wizard_box div.steps {
+      border-right: solid #ccc 1px;
+      width: 75px;
+      background: #eee;
+      position: relative;
+  }
+  .wiz-modal > div.wizard_box div.content {
+    display: block;
+    width: calc(100% - 160px);
+    padding: 10px;
+}
+.wiz-modal > div.wizard_box div.steps a {
+  font-size: 0;
+}
 }
