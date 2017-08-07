@@ -91,3 +91,94 @@ div.wizard_box div.bottom div.buttons {
 div.wizard_box div.bottom div.progress {
   width:210px;
 }
+
+.wiz-modal {
+position: fixed;
+font-family: Arial, Helvetica, sans-serif;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background: rgba(0,0,0,0.8);
+z-index: 99999;
+opacity:0;
+-webkit-transition: opacity 400ms ease-in;
+-moz-transition: opacity 400ms ease-in;
+transition: opacity 400ms ease-in;
+pointer-events: none;
+}
+.wiz-modal:target {
+opacity:1;
+pointer-events: auto;
+}
+
+.wiz-modal > *{
+width: 90%;
+max-width: 1000px;
+position: relative;
+margin: 10% auto;
+padding: 5px 20px 13px 20px;
+border-radius: 10px;
+background: #fff;
+}
+.wiz-close {
+background: #337ab7;
+color: #FFFFFF;
+line-height: 35px;
+position: absolute;
+right: 0;
+text-align: center;
+top: 0;
+margin-top: 5px;
+margin-right: 5px;
+width: 35px;
+text-decoration: none;
+font-weight: bold;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-moz-box-shadow: 1px 1px 3px #000;
+-webkit-box-shadow: 1px 1px 3px #000;
+box-shadow: 1px 1px 3px #000;
+}
+
+.wiz-close:hover {
+background: #286090;
+color: #fff;
+text-decoration: none;
+}
+
+.wiz-modal > div.wizard_box > div.title {
+  width: 100%;
+   background: transparent;
+  border-bottom: solid 1px #ccc;
+  padding: 24px;
+  font-size: 24px;
+}
+.wiz-modal > div.wizard_box > div.bottom {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: transparent;
+  border-top: solid #ddd 1px;
+  text-align: right;
+}
+@media (max-width:775px){
+  .wiz-modal > div.wizard_box div.steps {
+      border-right: solid #ccc 1px;
+      width: 75px;
+      background: #eee;
+      position: relative;
+  }
+  .wiz-modal > div.wizard_box div.content {
+    display: block;
+    width: calc(100% - 160px);
+    padding: 10px;
+}
+.wiz-modal > div.wizard_box div.steps a {
+  font-size: 0;
+}
+}
